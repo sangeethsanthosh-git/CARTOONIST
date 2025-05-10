@@ -1,163 +1,67 @@
-# CARTOONIST
-Cartoonizer: Transform Your Photos and Videos into Cartoons
+# Cartoon
+* This project refers to cartoonize a normal image or video
+* In this video can be upload upto 30sec in any size upto 100mb .there is a gpu version for doing the process faster but every device didnot contain a gpu so this project is fully capable of cpu acceleration so no bother about gpu.
+* Also image can be cartoonize within sec but video convertion an take upto 1.5 to 3 min because of frame per frame cartoonzing 
 
-Cartoonizer is a Flask-based web application that transforms both photos and videos into cartoon-style artwork using TensorFlow and OpenCV. With an intuitive interface and advanced features, users can create stunning cartoon effects with ease. The project now supports video conversion in addition to photo conversion, along with 10 new features to enhance creativity and user engagement.
+### Application tested on:
 
-Table of Contents
-
-Features
-New Features
-Demo
-Installation
-Usage
-Project Structure
-Technologies Used
-Contributing
-License
-Authors
+- python 3.9
 
 
-Features
+### Using `venv`
 
-Photo and Video Cartoonization: Transform images (PNG, JPG, JPEG, GIF) and videos (MP4, AVI) into cartoon-style artwork.
-Real-Time Progress Updates: See processing status with Server-Sent Events (SSE).
-Responsive UI: Built with Tailwind CSS for a modern, user-friendly experience.
-File Support: Handles files up to 100 MB.
+1. Make a virtual environment using `venv` and activate it
+```
+venv\Scripts\activate
 
-
-New Features
-Cartoonizer has been enhanced with the following 10 features:
-
-Multiple Cartoon Styles: Choose from Classic Comic, Anime, Sketch, or Watercolor styles for both photos and videos.
-Customization Options: Adjust edge thickness (1-10) and color intensity (1-100).
-Background Replacement: Add cartoon-themed backgrounds (e.g., Cityscape, Magical Forest) to photos and videos.
-Real-Time Preview: Preview cartoon effects for photos using a low-res canvas (CamanJS).
-Batch Processing: Cartoonize multiple photos or a video in one session.
-Text and Stickers: Add text and stickers to photos with an interactive editor (Fabric.js).
-Social Media Sharing: Share cartoonized photos and videos to Facebook, Twitter, or Instagram.
-Cartoon Avatars: Create avatars from selfies using Mediapipe facial detection (photos only).
-Undo/Redo: Experiment with edits safely (photos only).
-Educational Mode: Learn about cartoonization with tooltips.
-
-
-Demo
-Photo Cartoonization
-Watch a quick demo of cartoonizing a photo with the "Anime" style, adjusting settings, and adding a background:
-
-Video Cartoonization
-See how a short video is transformed into a cartoon with the "Classic Comic" style:
-
-Note: Replace the placeholder images above with actual demo videos or GIFs after recording them (see Usage for recording instructions).
-
-Installation
-Prerequisites
-
-Python 3.8+
-FFmpeg (for video processing)
-GPU (optional, for faster TensorFlow inference)
-
-Steps
-
-Clone the Repository:
-git clone https://github.com/your-username/cartoonizer.git
-cd cartoonizer
-
-
-Set Up a Virtual Environment (optional but recommended):
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-
-Install Dependencies:
+make sure the file location is correct the project is with in a folder (eg:cd C:\Project2025\cartoonize\cartoonize) 
+```
+2. Install python dependencies
+```
 pip install -r requirements.txt
+```
+3. Run the webapp. Be sure to set the appropriate values in `config.yaml` file before running the application.
+```
+python app.py
+```
+## Installation
 
-If requirements.txt is not available, install the following:
-pip install flask tensorflow opencv-python mediapipe pyyaml numpy
+### you can use pip install -r requirements.txt for installing package or else this can use
 
+pip install absl-py algorithmia algorithmia-api-client astor astunparse cached-property cachetools certifi charset-normalizer clang click colorama Flask flask-ngrok flatbuffers gast google-api-core google-auth google-auth-oauthlib google-cloud-core google-cloud-storage google-pasta google-resumable-media googleapis-common-protos grpcio gunicorn h5py idna importlib-metadata itsdangerous Jinja2 keras Keras-Applications Keras-Preprocessing libclang Markdown MarkupSafe numpy oauthlib opencv-python opt-einsum packaging Pillow pip proto-plus protobuf pyasn1 pyasn1-modules python-dateutil PyYAML requests requests-oauthlib rsa scikit-video scipy setuptools six sk-video tensorboard tensorboard-data-server tensorboard-plugin-wit tensorflow tensorflow-cpu tensorflow-estimator tensorflow-intel tensorflow-io-gcs-filesystem termcolor tf-slim typing-extensions urllib3 Werkzeug wheel wrapt zipp
 
-Install FFmpeg:
+### maybe after installation the project couldn't work it shows tensorflow error because of version inconsistancy so use following installing also 
 
-Windows: Download from ffmpeg.org, extract, and add to your system PATH.
-Mac: brew install ffmpeg
-Linux: sudo apt-get install ffmpeg
+1. pip uninstall -y tensorflow tensorflow-cpu tensorflow-intel protobuf
 
+2. pip list | findstr "tensorflow protobuf ml-dtypes tensorboard"
 
-Download Pre-trained Models:
+3. pip uninstall -y ml-dtypes tensorboard tensorboard-data-server tensorboard-plugin-wit tensorflow-estimator tensorflow-io-gcs-filesystem   
 
-The project uses pre-trained models for cartoonization. Ensure the white_box_cartoonizer/saved_models directory contains the necessary weights. If not, download them from this link and place them in the saved_models directory.
+4. pip install tensorflow==2.10.0 protobuf==3.20.3 ml-dtypes==0.4.0 tensorboard==2.18.0    
 
+5. pip uninstall -y tensorflow tensorboard protobuf 
 
-Set Up Static Folders:
+6. pip uninstall -y tensorflow-estimator tensorboard protobuf    
 
-Create static/backgrounds and add cartoon-themed background images (e.g., cityscape.jpg, forest.jpg, space.jpg).
-Create static/stickers and add sticker images (e.g., star.png).
+7. pip uninstall flask opencv-python pillow numpy tensorflow googleapis-common-protos -y
 
+8. pip install flask opencv-python pillow numpy==1.24.3 protobuf==3.20.3 googleapis-common-protos==1.69.2    
 
+9. pip install tensorflow-cpu==2.10.0 protobuf==3.19.6 tensorboard==2.10.1
 
+10. pip uninstall protobuf    
 
-Usage
-Running the App
+11. pip install protobuf==3.20.3   
 
-Start the Flask server:
+12. pip uninstall protobuf googleapis-common-protos -y   
+
+13. pip install protobuf==3.19.6 googleapis-common-protos==1.56.4
+
+### after installing this may be error show in the problem section in vs code no problem because of catch of previous work don't worry after installing all just excute the program 
+
 python app.py
 
-The app will run on http://127.0.0.1:8080.
+### remember that the virtual environment (venv) is active  
 
-Open your browser and navigate to http://127.0.0.1:8080.
-
-Upload a photo or video, customize settings (style, edge thickness, color intensity, background), and process. For photos, you can also add text/stickers, create avatars, and use educational mode.
-
-
-Recording Demo Videos
-To create demo videos for the README:
-
-Use a screen recording tool (e.g., OBS Studio, QuickTime Player, or Xbox Game Bar).
-Record the following:
-Photo Demo: Upload a photo, select "Anime" style, adjust sliders, add a background, and show the result.
-Video Demo: Upload a short video (10-15 seconds), select "Classic Comic" style, and show the processed video.
-
-
-Save videos as MP4 or convert to GIF using tools like EZGIF.
-Upload videos/GIFs to GitHub or a hosting service (e.g., Imgur) and update the demo section with the links.
-
-
-Project Structure
-cartoonizer/
-├── app.py                    # Main Flask application
-├── cartoonize.py             # Cartoonization logic (TensorFlow model)
-├── config.yaml               # Configuration file
-├── templates/
-│   └── index_cartoonized.html # HTML template for the app
-├── static/
-│   ├── uploaded_images/      # Temporary storage for uploaded files
-│   ├── cartoonized_outputs/  # Storage for processed outputs
-│   ├── backgrounds/          # Cartoon-themed background images
-│   └── stickers/             # Sticker images for photo editing
-├── white_box_cartoonizer/
-│   └── saved_models/         # Pre-trained TensorFlow models
-└── README.md                 # Project documentation
-
-
-Technologies Used
-
-Frontend: HTML, CSS (Tailwind CSS), JavaScript (jQuery, Fabric.js, CamanJS)
-Backend: Flask, TensorFlow, OpenCV, Mediapipe, FFmpeg
-Other: Server-Sent Events (SSE), Google Cloud Storage (optional)
-
-
-Contributing
-We welcome contributions to improve Cartoonizer! To contribute:
-
-Fork the repository.
-Create a new branch (git checkout -b feature/your-feature).
-Make your changes and commit (git commit -m "Add your feature").
-Push to your branch (git push origin feature/your-feature).
-Open a Pull Request with a detailed description of your changes.
-
-
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-
-
-For questions or feedback, please contact us at [sangeethsanthosh80@gmail.com].
+okay that's all happy coding  ^_^
