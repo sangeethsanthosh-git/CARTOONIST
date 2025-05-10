@@ -14,7 +14,7 @@
 ```
 venv\Scripts\activate
 
-make sure the file location is correct the project is with in a folder (eg:cd C:\Project2025\cartoonize\cartoonize) 
+make sure the file location is correct the project is with in a folder 
 ```
 2. Install python dependencies
 ```
